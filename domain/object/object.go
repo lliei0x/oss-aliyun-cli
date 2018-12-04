@@ -2,7 +2,8 @@ package object
 
 import (
 	"fmt"
-	"oss-aliyun-cli/infra/utils"
+	"strings"
+	// "oss-aliyun-cli/infra/utils"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
@@ -17,8 +18,11 @@ func (object *Object) PutObject(bucketName string, path string) error {
 	if err != nil {
 		return err
 	}
-	fileName := utils.PathSplitToFileName(path)
-	err = bucket.PutObjectFromFile(fileName, path)
+	// fileName := utils.PathSplitToFileName(path)
+	split := strings.Split(path, `\`)
+	splitLength := len(split)
+	fileName := split[splitLength-1 : splitLength]
+	err = bucket.PutObjectFromFile(fileName[0], path)
 	if err != nil {
 		return err
 	}
