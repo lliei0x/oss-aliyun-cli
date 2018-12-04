@@ -1,8 +1,6 @@
-package domain
+package bucket
 
 import (
-	"fmt"
-
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
 
@@ -16,14 +14,16 @@ type Bucket struct {
 }
 
 // ListBucket 获取存储空间列表
-func (bucket *Bucket) ListBucket() {
+func (bucket *Bucket) ListBucket() ([]string, error) {
 	lbr, err := bucket.Client.ListBuckets()
 	if err != nil {
-		return
+		return nil, err
 	}
+	var bucketName []string
 	for _, bucket := range lbr.Buckets {
-		fmt.Println("my buckets:", bucket.Name)
+		bucketName = append(bucketName, bucket.Name)
 	}
+	return bucketName, nil
 }
 
 // CreateBucket 创建存储空间
