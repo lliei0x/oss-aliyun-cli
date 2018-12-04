@@ -3,13 +3,15 @@ package main
 import (
 	"fmt"
 
+	"oss-aliyun-cli/config"
+	"oss-aliyun-cli/domain/bucket"
+	"oss-aliyun-cli/domain/object"
+
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
-	"leeif.me/Go-utils/oss-aliyun/config"
-	"leeif.me/Go-utils/oss-aliyun/domain"
 )
 
 const (
-	path       = `D:\Server\Go\src\leeif.me\Go-utils\oss-aliyun\main.go`
+	path       = `D:\Server\Go\src\oss-aliyun-cli\main.go`
 	bucketName = "leeifme"
 	objectName = ""
 )
@@ -19,12 +21,12 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	bucket := &domain.Bucket{
+	bucket := &bucket.Bucket{
 		Client: client,
 	}
 	bucket.ListBucket()
 
-	object := &domain.Object{
+	object := &object.Object{
 		Client: client,
 	}
 	// fileinfo, err := os.Stat(path)

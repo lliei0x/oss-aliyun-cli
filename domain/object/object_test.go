@@ -30,16 +30,85 @@ func getObjectClient() *Object {
 func TestPutObject(t *testing.T) {
 	object := getObjectClient()
 	tests := []struct {
-		Bucket string
-		Path   string
+		bucketName string
+		path       string
 	}{
 		{
-			Bucket: "",
-			Path:   "",
+			bucketName: "leeebucket",
+			path:       `D:\Server\Go\src\oss-aliyun-cli\main.go`,
 		},
 	}
 	for _, test := range tests {
-		object.PutObject(test.Bucket, test.Path)
+		err := object.PutObject(test.bucketName, test.path)
+		if err != nil {
+			t.Error(err)
+		} else {
+			t.Logf("Put Object: %v success", test.path)
+		}
 	}
 
+}
+
+func TestGetObject(t *testing.T) {
+	object := getObjectClient()
+	tests := []struct {
+		bucketName string
+		Path       string
+	}{
+		{
+			bucketName: "leeebucket",
+			Path:       "",
+		},
+	}
+	for _, test := range tests {
+		err := object.GetObject(test.bucketName)
+		if err != nil {
+			t.Error(err)
+		} else {
+			t.Logf("Put Object: %v success", test.Path)
+		}
+	}
+
+}
+
+func TestListObject(t *testing.T) {
+	object := getObjectClient()
+	tests := []struct {
+		bucketName string
+	}{
+		{
+			bucketName: "leeebucket",
+		},
+	}
+	for _, test := range tests {
+		listObject, err := object.ListObject(test.bucketName)
+		if err != nil {
+			t.Error(err)
+		} else {
+			t.Logf("My Object: %v", listObject)
+		}
+	}
+
+}
+
+func TestDeleteObject(t *testing.T) {
+	object := getObjectClient()
+	tests := []struct {
+		bucketName string
+		objectKeys []string
+	}{
+		{
+			bucketName: "leeebucket",
+			objectKeys: []string{"main.go"},
+		},
+	}
+	for _, test := range tests {
+		err := object.DeleteObject(test.bucketName, test.objectKeys)
+		if err != nil {
+			t.Error(err)
+		}
+		// else {
+		// 	t.Logf("My Object: %v", listObject)
+		// }
+	}
 }

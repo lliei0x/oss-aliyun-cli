@@ -17,7 +17,7 @@ import (
 func getBucketClient() *Bucket {
 	client, err := oss.New(config.Endpoint, config.AccessKeyID, config.AccessKeySecret)
 	if err != nil {
-		fmt.Println(err)
+		t.Error(err)
 	}
 
 	bucket := &Bucket{
@@ -38,18 +38,18 @@ func TestListBucket(t *testing.T) {
 func TestCreateBucket(t *testing.T) {
 	bucket := getBucketClient()
 	tests := []struct {
-		BucketName string
+		bucketName string
 	}{
 		{
-			BucketName: "leeebucket",
+			bucketName: "leeebucket",
 		},
 	}
 	for _, test := range tests {
-		err := bucket.CreateBucket(test.BucketName)
+		err := bucket.CreateBucket(test.bucketName)
 		if err != nil {
 			t.Error(err)
 		} else {
-			t.Logf("Create Bucket: %v success", test.BucketName)
+			t.Logf("Create Bucket: %v success", test.bucketName)
 		}
 
 	}
@@ -58,18 +58,18 @@ func TestCreateBucket(t *testing.T) {
 func TestDeleteBucket(t *testing.T) {
 	bucket := getBucketClient()
 	tests := []struct {
-		BucketName string
+		bucketName string
 	}{
 		{
-			BucketName: "fafafadd",
+			bucketName: "leeebucket",
 		},
 	}
 	for _, test := range tests {
-		err := bucket.DeleteBucket(test.BucketName)
+		err := bucket.DeleteBucket(test.bucketName)
 		if err != nil {
 			t.Error(err)
 		} else {
-			t.Logf("Delete Bucket: %v success", test.BucketName)
+			t.Logf("Delete Bucket: %v success", test.bucketName)
 		}
 	}
 }
