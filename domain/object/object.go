@@ -1,4 +1,4 @@
-package domain
+package object
 
 import (
 	"fmt"
@@ -45,9 +45,7 @@ func (object *Object) GetObject(bucketName string) error {
 		return err
 	}
 	err = bucket.GetObjectToFile("blog/", "blog/")
-	// body,err:=bucket.GetObject("blog/")
-	// data, err := ioutil.ReadAll(body)
-	// body.Close()
+	// bucket.GetObjectWithURL(signedURL, options)
 	if err != nil {
 		return err
 	}
@@ -64,6 +62,7 @@ func (object *Object) ListObject(bucketName string) error {
 		return err
 	}
 	for _, object := range lor.Objects {
+		// if strings.Split(object.Key, )
 		fmt.Println(object.Key)
 	}
 	return nil
