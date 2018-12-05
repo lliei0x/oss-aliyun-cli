@@ -44,6 +44,7 @@ func UploadOne(path string) {
 		handleError(err)
 	} else {
 		fmt.Printf("Put Object: %v success", path)
+		fmt.Println("")
 	}
 }
 func createWorker(id int) Worker {
@@ -57,7 +58,8 @@ func createWorker(id int) Worker {
 
 //并发上传目录下所有文件
 func UploadMany(path string) {
-	files, err := getAllFiles(path)
+	var temps []string
+	files, err := getAllFiles(path, temps)
 	if err != nil {
 		handleError(err)
 	}
@@ -91,36 +93,38 @@ func doWork(id int, c chan string, done chan bool) {
 			handleError(err)
 		} else {
 			fmt.Printf("Put Object: %v success", n)
+			fmt.Println("")
 		}
 		go func() { done <- true }()
 	}
 }
 
 //获取指定目录下的所有文件,包含子目录下的文件
-func getAllFiles(dirPth string) (files []string, err error) {
-	var dirs []string
-	dir, err := ioutil.ReadDir(dirPth)
+func getAllFiles(dirPth string, temps []string) (files []string, err error) {
+	// 拼接上一个目录下的文件路径
+	for _, temp := range temps {
+		files = append(files, temp)
+	}
+
+	fileInfos, err := ioutil.ReadDir(dirPth)
 	if err != nil {
 		return nil, err
 	}
-	PthSep := string(os.PathSeparator)
-	for _, fi := range dir {
-		if fi.IsDir() { // 目录, 递归遍历
-			dirs = append(dirs, dirPth+PthSep+fi.Name())
-			getAllFiles(dirPth + PthSep + fi.Name())
+	for _, fileInfo := range fileInfos {
+		if fileInfo.IsDir() {
+			// 目录, 递归遍历
+			files, _ = getAllFiles(dirPth+`\`+fileInfo.Name(), files)
 		} else {
 			// 过滤指定格式
 			if suffix != "" {
-				ok := strings.HasSuffix(fi.Name(), suffix)
-				fmt.Println("111111111")
+				ok := strings.HasSuffix(fileInfo.Name(), suffix)
 				if ok {
-					files = append(files, dirPth+PthSep+fi.Name())
+					files = append(files, dirPth+`\`+fileInfo.Name())
 				}
 			} else {
-				files = append(files, dirPth+PthSep+fi.Name())
+				files = append(files, dirPth+`\`+fileInfo.Name())
 			}
 		}
 	}
-
 	return files, nil
 }
