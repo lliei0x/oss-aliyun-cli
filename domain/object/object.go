@@ -22,7 +22,7 @@ func (object *Object) PutObject(bucketName string, path string) error {
 	split := strings.Split(path, `\`)
 	splitLength := len(split)
 	fileName := split[splitLength-1 : splitLength]
-	err = bucket.PutObjectFromFile(fileName[0], path)
+	err = bucket.PutObjectFromFile("domain/"+fileName[0], path)
 	if err != nil {
 		return err
 	}
