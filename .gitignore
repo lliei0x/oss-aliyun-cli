@@ -1,5 +1,5 @@
 # config/config.go
 .idea
 debug
-
+*.exe
 vendor/*
