@@ -2,7 +2,6 @@ package common
 
 import (
 	"fmt"
-	"os"
 
 	"oss-aliyun-cli/config"
 	bu "oss-aliyun-cli/domain/bucket"
@@ -37,26 +36,24 @@ func init() {
 	CmdDownload.Flags().StringVarP(&filepath, "filepath", "f", "", "指定需要上传文件或者目录的绝对路径")
 
 	// Get
-	CmdGet.Flags().StringVarP(&bucket, "bucket", "b", "", "aliyun-oss上的存储空间命名")
-	CmdGet.Flags().StringVarP(&object, "object", "o", "", "aliyun-oss上的文件对象命名")
-	CmdGet.Flags().StringVarP(&filepath, "filepath", "f", "", "指定需要上传文件或者目录的绝对路径")
+	// CmdGet.Flags().StringVarP(&bucket, "bucket", "b", "", "aliyun-oss上的存储空间命名")
+	// CmdGet.Flags().StringVarP(&object, "object", "o", "", "aliyun-oss上的文件对象命名")
 
 	// Creat
 	CmdCreate.Flags().StringVarP(&bucket, "bucket", "b", "", "aliyun-oss上的存储空间命名")
 	CmdCreate.Flags().StringVarP(&object, "object", "o", "", "aliyun-oss上的文件对象命名")
-	CmdCreate.Flags().StringVarP(&filepath, "filepath", "f", "", "指定需要上传文件或者目录的绝对路径")
 
 	// Delete
 	CmdDelete.Flags().StringVarP(&bucket, "bucket", "b", "", "aliyun-oss上的存储空间命名")
 	CmdDelete.Flags().StringVarP(&object, "object", "o", "", "aliyun-oss上的文件对象命名")
-	CmdDelete.Flags().StringVarP(&filepath, "filepath", "f", "", "指定需要上传文件或者目录的绝对路径")
-
 }
 
 func getBucketClient() {
 	client, err := oss.New(config.Endpoint, config.AccessKeyID, config.AccessKeySecret)
 	if err != nil {
-		handleError(err)
+		fmt.Printf("创建 aliyun-oss-clint 出错，具体错误如下：")
+		fmt.Println("")
+		fmt.Println(err)
 	}
 
 	bClient = &bu.Bucket{
@@ -67,16 +64,12 @@ func getBucketClient() {
 func getObjectClient() {
 	client, err := oss.New(config.Endpoint, config.AccessKeyID, config.AccessKeySecret)
 	if err != nil {
-		fmt.Println("11111")
-		handleError(err)
+		fmt.Printf("创建 aliyun-oss-clint 出错，具体错误如下：")
+		fmt.Println("")
+		fmt.Println(err)
 	}
 
 	oClient = &ob.Object{
 		Client: client,
 	}
-}
-
-func handleError(err error) {
-	fmt.Println("Error:", err)
-	os.Exit(-1)
 }

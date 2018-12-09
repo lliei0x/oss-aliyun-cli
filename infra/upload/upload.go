@@ -16,7 +16,6 @@ type Worker struct {
 
 const (
 	workerCount = 10 //设置最大并发数
-	suffix      = ""
 )
 
 func Upload(path string, suffix string, bucketName string, objectKey string, oClient *object.Object) error {

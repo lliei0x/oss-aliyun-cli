@@ -2,6 +2,7 @@ package common
 
 import (
 	"fmt"
+
 	"oss-aliyun-cli/infra/upload"
 
 	"github.com/spf13/cobra"
