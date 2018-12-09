@@ -1,9 +1,7 @@
 package object
 
 import (
-	"fmt"
-	"strings"
-	// "oss-aliyun-cli/infra/utils"
+	"oss-aliyun-cli/infra/utils"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
@@ -13,16 +11,13 @@ type Object struct {
 }
 
 // PutObject 上传文件
-func (object *Object) PutObject(bucketName string, path string) error {
+func (object *Object) PutObject(bucketName string, objectName string, path string) error {
 	bucket, err := object.Client.Bucket(bucketName)
 	if err != nil {
 		return err
 	}
-	// fileName := utils.PathSplitToFileName(path)
-	split := strings.Split(path, `\`)
-	splitLength := len(split)
-	fileName := split[splitLength-1 : splitLength]
-	err = bucket.PutObjectFromFile("domain/"+fileName[0], path)
+	fileName := utils.PathSplitToFileName(path)
+	err = bucket.PutObjectFromFile(objectName+fileName, path)
 	if err != nil {
 		return err
 	}
@@ -30,12 +25,12 @@ func (object *Object) PutObject(bucketName string, path string) error {
 }
 
 // GetObject 下载文件
-func (object *Object) GetObject(bucketName string) error {
+func (object *Object) GetObject(bucketName string, objectKey string, loaclPath string) error {
 	bucket, err := object.Client.Bucket(bucketName)
 	if err != nil {
 		return err
 	}
-	err = bucket.GetObjectToFile("blog/", "blog/")
+	err = bucket.GetObjectToFile(objectKey, loaclPath)
 	if err != nil {
 		return err
 	}
@@ -60,15 +55,14 @@ func (object *Object) ListObject(bucketName string) ([]string, error) {
 }
 
 // DeleteObject 删除文件
-func (object *Object) DeleteObject(bucketName string, objectKeys []string) error {
+func (object *Object) DeleteObject(bucketName string, objectKey string) error {
 	bucket, err := object.Client.Bucket(bucketName)
 	if err != nil {
 		return err
 	}
-	out, err := bucket.DeleteObjects(objectKeys)
+	err = bucket.DeleteObject(objectKey)
 	if err != nil {
 		return err
 	}
-	fmt.Println(out)
 	return nil
 }
