@@ -1,9 +1,9 @@
 ## OSS-Aliyun-CLI
 
-[![LICENSE](https://img.shields.io/badge/license-MIT-FF0080.svg)](https://github.com/leeifme/oss-aliyun-cli/blob/master/LICENSE)
-[![leeifme on github](https://img.shields.io/badge/github-@leeifme-red.svg)](https://github.com/leeifme)
-[![package version](https://img.shields.io/badge/package-v0.1.0-blue.svg)](https://github.com/leeifme/oss-aliyun-cli)
-[![language by golang](https://img.shields.io/badge/language-@golang-green.svg)](https://github.com/leeifme/oss-aliyun-cli)
+![](https://travis-ci.org/wuxiaoxiaoshen/2019-daily.svg?branch=master)
+![leeifme on github](https://img.shields.io/badge/github-@leeifme-red.svg)](https://github.com/leeifme)
+![package version](https://img.shields.io/badge/package-v0.1.0-blue.svg)](https://github.com/leeifme/oss-aliyun-cli)
+![language by golang](https://img.shields.io/badge/language-@golang-green.svg)](https://github.com/leeifme/oss-aliyun-cli)
 
 > aliyun-oss 命令行工具 :man_technologist:
 

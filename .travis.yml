@@ -1,0 +1,9 @@
+language: go
+go:
+  - "1.11"
+notifications:
+  email:
+    recipients:
+      - i@leeif.me
+    on_success: change # default: change
+    on_failure: always # default: always
