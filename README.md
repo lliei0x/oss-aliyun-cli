@@ -1,6 +1,6 @@
 ## OSS-Aliyun-CLI
 
-![](https://travis-ci.org/wuxiaoxiaoshen/2019-daily.svg?branch=master)
+![](https://travis-ci.org/leeifme/oss-aliyun-cli.svg?branch=master)
 [![leeifme on github](https://img.shields.io/badge/github-@leeifme-red.svg)](https://github.com/leeifme)
 [![package version](https://img.shields.io/badge/package-v0.1.0-blue.svg)](https://github.com/leeifme/oss-aliyun-cli)
 [![language by golang](https://img.shields.io/badge/language-@golang-green.svg)](https://github.com/leeifme/oss-aliyun-cli)
