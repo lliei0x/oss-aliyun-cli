@@ -1,11 +1,9 @@
 package main
 
 import (
-	// "oss-aliyun-cli/cmd"
-	"fmt"
+	"oss-aliyun-cli/cmd"
 )
 
 func main() {
-	// cmd.Execute()
-	fmt.Println("oss-aliyun-cli")
+	cmd.Execute()
 }
