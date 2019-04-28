@@ -10,9 +10,6 @@ notifications:
     on_success: change # default: change
     on_failure: always # default: always
 
-before_install:
-  - go vet $(go list ./... | grep -v /vendor/)
-
 script:
   - make fmt
   - make fmt-check
